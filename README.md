@@ -90,10 +90,10 @@ A continuación, se detallan los comandos de consola y las rutas de las capturas
 
 ---
 
-### C. Recurso No Encontrado (Consulta de ID Inexistente con estado 404 Not Found)
+### C. Consulta de un Plan (Consulta de ID Existente con estado 200 OK)
 * **Comando de prueba (cURL):**
   ```bash
-  curl -X GET http://127.0.0999
+  curl -X GET http://127.0.0.1:3000/api/planes/2
   ```
 * **Evidencia Visual:**
-  ![Recurso No Encontrado](./evidencias/recurso_no_encontrado.png)
+  ![Consulta de un Plan](./evidencias/consulta.png)
