@@ -22,6 +22,30 @@ Para este hito de revisión, se seleccionó el módulo de **Planes** como el nú
 * Validar técnicamente las capacidades de conectividad (Mbps) y cumplimiento de SLAs antes de su asignación contractual.
 * Evitar pérdidas económicas garantizando que ningún servicio se comercialice por debajo de los costos mínimos operativos establecidos para el sector comercial PYME de Bogotá (\$50,000 COP).
 
+## Estructura de Directorios para NOVARED
+
+```text
+Novared/
+├── data/
+│   └── app.db                    # Base de datos SQLite
+├── evidencias/                   # Capturas de las pruebas de la API
+├── src/
+│   ├── app.py                    # Punto de entrada e inicio del servidor Flask
+│   ├── db/
+│   │   └── database.py           # Conexión e inicialización de tablas
+│   ├── routes/
+│   │   └── planes_routes.py      # Endpoints (Blueprints)
+│   ├── controllers/
+│   │   └── planes_controller.py # Orquestación HTTP (Request/Response)
+│   ├── services/
+│   │   └── planes_service.py     # Lógica y validaciones de negocio
+│   └── repositories/
+│       └── planes_repository.py  # Consultas SQL parametrizadas
+├── .env                          # Variables de entorno locales
+├── requirements.txt              # Dependencias del proyecto
+└── README.md
+```
+
 ---
 
 ## 2. Instrucciones de Configuración y Execution Local
