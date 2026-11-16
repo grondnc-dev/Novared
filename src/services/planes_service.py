@@ -28,6 +28,9 @@ class PlanesService:
         return self.repository.delete(plan_id)
 
     def _validar_datos_plan(self, datos):
+        if not isinstance(datos, dict):
+            raise ValueError("VALIDATION_ERROR: Debes enviar un JSON válido con los datos del plan.")
+
         nombre = datos.get('nombre')
         ancho_banda = datos.get('ancho_banda')
         tarifa = datos.get('tarifa')

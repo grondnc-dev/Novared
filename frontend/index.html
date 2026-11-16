@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NOVARED - Gestión de Planes</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header class="encabezado">
+      <img class="logo" src="../evidencias/logo.png" alt="Logo de NOVARED">
+      <div>
+        <h1>NOVARED | Catálogo de Planes PYME</h1>
+        <p>Administración de conectividad, tarifas y Acuerdos de Nivel de Servicio (SLA)</p>
+      </div>
+    </header>
+
+    <div id="alerta" class="alerta oculto"></div>
+
+    <form id="form-plan" class="card">
+      <h2 id="form-titulo">Registrar Nuevo Plan</h2>
+      <input type="hidden" id="plan-id">
+
+      <div class="grid-form">
+        <div class="campo">
+          <label for="nombre">Nombre del Plan:</label>
+          <input type="text" id="nombre" placeholder="Ej. Plan Comercio Bogotá">
+        </div>
+
+        <div class="campo">
+          <label for="ancho_banda">Ancho de Banda (Mbps):</label>
+          <input type="number" id="ancho_banda" placeholder="Ej. 300" min="1">
+        </div>
+
+        <div class="campo">
+          <label for="tarifa">Tarifa Mensual (COP):</label>
+          <input type="number" id="tarifa" placeholder="Mínimo 50000" min="50000">
+        </div>
+
+        <div class="campo">
+          <label for="sla">SLA Garantizado:</label>
+          <input type="text" id="sla" placeholder="Ej. 99.7%">
+        </div>
+      </div>
+
+      <div class="acciones-form">
+        <button type="submit" id="btn-guardar">Guardar Plan</button>
+        <button type="button" id="btn-cancelar" class="btn-secundario oculto">Cancelar Edición</button>
+      </div>
+    </form>
+
+    <div class="card">
+      <h2>Planes Registrados en SQLite</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Ancho de Banda</th>
+            <th>Tarifa (COP)</th>
+            <th>SLA</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-planes"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

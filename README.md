@@ -1,63 +1,160 @@
-# NOVARED - Núcleo del Servidor (Backend v1.0.0)
-**Asignatura:** Ingeniería de Software III  
-**Período Académico:** 4 Cuatrimestre - Universidad INCCA  
-**Año de Desarrollo:** 2026  
+# NOVARED - Gestión de planes de conectividad
 
-### Integrantes / Alumnos del Proyecto:
-* **Mercedes Del Pilar Mosquera Martínez**
-* **Luz Amparo Sánchez Archila**
-* **Yeisten Osvaldo Murcia Vásquez**
-* **Alvaro Gerardo Rondón Carvajal**
+**Asignatura:** Ingeniería de Software III
+**Período académico:** 4.º cuatrimestre - Universidad INCCA
+**Año de desarrollo:** 2026
 
----
+## Integrantes
 
-## 1. Descripción del Proyecto y Entidad Elegida
+- Mercedes Del Pilar Mosquera Martínez
+- Luz Amparo Sánchez Archila
+- Yeisten Osvaldo Murcia Vásquez
+- Alvaro Gerardo Rondón Carvajal
 
-### Contexto del Sistema (Proyecto de Aula)
-**NOVARED** es una solución tecnológica diseñada para centralizar, administrar y asegurar la información operativa de conectividad orientada a empresas PYME del sector comercial en la ciudad de Bogotá. La problemática central que resuelve este sistema es la ineficiencia administrativa, la pérdida de datos de clientes, errores de facturación y las dificultades para controlar de manera estricta los Acuerdos de Nivel de Servicio (**SLA**) y anchos de banda contratados.
+## Descripción
 
-### Entidad Elegida para el Avance: `Planes`
-Para este hito de revisión, se seleccionó el módulo de **Planes** como el núcleo estructural del negocio. Esta entidad define el catálogo de servicios de telecomunicaciones que la microempresa comercializa. Controlar esta entidad mediante una API robusta permite:
-* Automatizar y estandarizar las tarifas vigentes del mercado de telecomunicaciones colombiano.
-* Validar técnicamente las capacidades de conectividad (Mbps) y cumplimiento de SLAs antes de su asignación contractual.
-* Evitar pérdidas económicas garantizando que ningún servicio se comercialice por debajo de los costos mínimos operativos establecidos para el sector comercial PYME de Bogotá (\$50,000 COP).
+NOVARED es una aplicación académica para centralizar la administración de servicios de conectividad dirigidos a empresas PYME de Bogotá. Este avance implementa el catálogo de planes: permite registrar, consultar, actualizar y eliminar planes, validando el ancho de banda, la tarifa mensual mínima de $50.000 COP y el formato del SLA.
 
-## Estructura de Directorios para NOVARED
----
+El proyecto incluye una API REST construida con Flask y SQLite, además de una interfaz web para administrar los planes. La página muestra el logo de NOVARED, ubicado en `evidencias/logo.png`.
 
-## 5. Integración Frontend y Despliegue Simultáneo (Sesión No. 11)
+## Estructura del proyecto
 
-Se implementó una interfaz desacoplada en **HTML5, CSS3 y Vanilla JavaScript (`Fetch API`)** en `/frontend` que consume los endpoints REST del módulo **Planes**, manejando códigos HTTP (`200`, `201`, `204`, `400`, `404`).
-
-### Estructura Actualizada
 ```text
 Novared/
-├── data/app.db                 # Base de datos SQLite
-├── evidencias/                 # Capturas de pruebas API/Frontend
-├── frontend/                   # index.html, styles.css, app.js
-├── src/app.py                  # Servidor Flask con CORS
-├── requirements.txt            # Flask, python-dotenv, flask-cors
+├── data/
+│   └── app.db
+├── evidencias/
+│   ├── logo.png
+│   └── ...
+├── frontend/
+│   ├── app.js
+│   ├── index.html
+│   └── styles.css
+├── src/
+│   ├── app.py
+│   ├── controllers/
+│   │   └── planes_controller.py
+│   ├── db/
+│   │   └── database.py
+│   ├── repositories/
+│   │   └── planes_repository.py
+│   ├── routes/
+│   │   └── planes_routes.py
+│   └── services/
+│       └── planes_service.py
+├── .env
+├── requirements.txt
 └── README.md
 ```
 
-### Ejecución Local Simultánea
+La API sigue el flujo **Rutas → Controladores → Servicios → Repositorios**. El frontend está hecho con HTML, CSS y JavaScript y se comunica con la API mediante `fetch`.
 
-1. **Backend (Puerto 3000):**
-   ```bash
-   pip install -r requirements.txt
-   python -m src.app
-   ```
-2. **Frontend (Puerto 8080):**
-   ```bash
-   cd frontend && python -m http.server 8080
-   ```
-   *Accede a `http://127.0.0.1:8080`.*
+## Requisitos
 
----
+- Python 3
+- `pip`
 
-## 6. Evidencias del Ciclo CRUD
+## Instalación y ejecución en Windows
 
-* **GET (`/api/planes/`):** Listado dinámico (`200 OK`).
-* **POST (`/api/planes/`):** Alta de planes con validaciones (`201 Created` / `400 Bad Request`).
-* **PUT (`/api/planes/<id>`):** Edición de registros (`200 OK`).
-* **DELETE (`/api/planes/<id>`):** Borrado con confirmación (`204 No Content`).
+Abre dos terminales en la carpeta raíz del proyecto.
+
+### 1. Instalar dependencias
+
+```powershell
+pip install -r requirements.txt
+```
+
+### 2. Iniciar el backend
+
+En la primera terminal, ejecuta:
+
+```powershell
+python -m src.app
+```
+
+La aplicación inicializa la tabla `planes` si todavía no existe y ejecuta el servidor en `http://127.0.0.1:3000`. El puerto se puede cambiar mediante la variable `PORT` del archivo `.env`.
+
+### 3. Iniciar el frontend
+
+En la segunda terminal, ejecuta:
+
+```powershell
+python -m http.server 8080 --directory frontend
+```
+
+Abre `http://127.0.0.1:8080` en el navegador. Sirve la página desde un servidor HTTP para que el navegador pueda cargar sus recursos locales y realizar las peticiones a la API. El logo se carga desde `../evidencias/logo.png`.
+
+## Configuración
+
+El archivo `.env` en la raíz contiene la configuración local:
+
+```env
+PORT=3000
+DB_FILE=./data/app.db
+FLASK_ENV=development
+```
+
+`PORT` define el puerto del backend y `DB_FILE` la ruta de la base de datos SQLite. La configuración CORS de la API habilita las solicitudes desde el frontend.
+
+## API REST
+
+La base de la API es `http://127.0.0.1:3000/api/planes`.
+
+| Método | Ruta | Descripción | Respuesta esperada |
+|---|---|---|---|
+| `GET` | `/` | Lista todos los planes | `200 OK` |
+| `GET` | `/<id>` | Consulta un plan por ID | `200 OK` o `404 Not Found` |
+| `POST` | `/` | Crea un plan | `201 Created` o `400 Bad Request` |
+| `PUT` | `/<id>` | Actualiza un plan | `200 OK`, `400 Bad Request` o `404 Not Found` |
+| `DELETE` | `/<id>` | Elimina un plan | `204 No Content` o `404 Not Found` |
+
+El cuerpo de las solicitudes `POST` y `PUT` debe ser JSON con estos campos:
+
+```json
+{
+  "nombre": "Plan Comercio Bogotá",
+  "ancho_banda": 300,
+  "tarifa": 150000,
+  "sla": "99.7%"
+}
+```
+
+Reglas de validación principales:
+
+- El nombre debe tener al menos 3 caracteres.
+- El ancho de banda debe ser un número positivo, en Mbps.
+- La tarifa debe ser de al menos $50.000 COP.
+- El SLA debe incluir el símbolo `%`.
+- El cuerpo debe ser un objeto JSON válido.
+
+## Ejemplos de solicitudes
+
+Los siguientes ejemplos usan `curl.exe` desde PowerShell.
+
+Listar planes:
+
+```powershell
+curl.exe http://127.0.0.1:3000/api/planes/
+```
+
+Crear un plan:
+
+```powershell
+curl.exe -X POST http://127.0.0.1:3000/api/planes/ -H "Content-Type: application/json" -d '{"nombre":"Plan Comercio Bogotá","ancho_banda":300,"tarifa":150000,"sla":"99.7%"}'
+```
+
+Consultar el plan con ID `2`:
+
+```powershell
+curl.exe http://127.0.0.1:3000/api/planes/2
+```
+
+## Interfaz web
+
+Desde la página se pueden listar planes, registrar nuevos, editar sus datos y eliminarlos. La interfaz incluye validaciones previas al envío y presenta mensajes de éxito o error según la respuesta de la API.
+
+La página y sus recursos están en `frontend/`; el logo está en `evidencias/logo.png`.
+
+## Evidencias
+
+Las capturas de las pruebas de la API y de la interfaz están en [`evidencias/`](./evidencias/).

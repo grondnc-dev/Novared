@@ -23,7 +23,9 @@ class PlanesController:
 
     def crear(self):
         try:
-            datos = request.get_json()
+            datos = request.get_json(silent=True)
+            if not isinstance(datos, dict):
+                raise ValueError("VALIDATION_ERROR: Debes enviar un JSON válido con los datos del plan.")
             nuevo_plan = self.service.crear_plan(datos)
             return jsonify(nuevo_plan), 201
         except ValueError as e:
@@ -33,7 +35,9 @@ class PlanesController:
 
     def actualizar(self, id):
         try:
-            datos = request.get_json()
+            datos = request.get_json(silent=True)
+            if not isinstance(datos, dict):
+                raise ValueError("VALIDATION_ERROR: Debes enviar un JSON válido con los datos del plan.")
             self.service.actualizar_plan(id, datos)
             return jsonify({"mensaje": "Plan actualizado con éxito."}), 200
         except ValueError as e:

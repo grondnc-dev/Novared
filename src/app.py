@@ -8,7 +8,7 @@ from src.routes.planes_routes import planes_bp
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 # Inicializar Base de Datos SQLite de forma automática al arrancar
 inicializar_tablas()
@@ -22,4 +22,4 @@ def nodo_no_encontrado(e):
 
 if __name__ == '__main__':
     port = int(os.getenv("PORT", 3000))
-    app.run(port=port, debug=True)
+    app.run(host='0.0.0.0', port=port, debug=True)
