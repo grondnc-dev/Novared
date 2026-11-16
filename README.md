@@ -82,7 +82,7 @@ En la segunda terminal, ejecuta:
 python -m http.server 8080 --directory frontend
 ```
 
-Abre `http://127.0.0.1:8080` en el navegador. Sirve la página desde un servidor HTTP para que el navegador pueda cargar sus recursos locales y realizar las peticiones a la API. El logo se carga desde `../evidencias/logo.png`.
+Abre `http://127.0.0.1:8080` en el navegador. Sirve la página desde un servidor HTTP para que el navegador pueda cargar sus recursos y realizar las peticiones a la API. El logo se encuentra en `frontend/logo.png` para que también se cargue cuando `frontend/` se sirve como raíz.
 
 ## Configuración
 
@@ -153,7 +153,7 @@ curl.exe http://127.0.0.1:3000/api/planes/2
 
 Desde la página se pueden listar planes, registrar nuevos, editar sus datos y eliminarlos. La interfaz incluye validaciones previas al envío y presenta mensajes de éxito o error según la respuesta de la API.
 
-La página y sus recursos están en `frontend/`; el logo está en `evidencias/logo.png`.
+La página y sus recursos, incluido el logo, están en `frontend/`. La imagen original también se conserva en `evidencias/logo.png`.
 
 ## Evidencias
 
